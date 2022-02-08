@@ -1,0 +1,43 @@
+﻿How browser rendering works 
+
+
+Research Question:
+How does the rendering in browsers work and how does the css html js gets fetched into DOM?
+
+Introduction:
+Web browsers are the most used softwares world wide. In this paper, we will discuss how the rendering happens in th browser and how browsers work behind the scenes. We will see what happens when we type something in the search bar or address bar until you see the Google page on the browser screen. The browser blocks some rendering of a webpage until certain resources are loaded first and other resources gets load asynchronously.
+
+Browser Rendering:
+
+	A Web browser is a software that loads the files from the remote server or from a local disk and displays them on the screen which allows us for the user interaction. However, in the browser, there is a part of software that figures out what should be displayed on the sreen based on the type of files it receives. This is called as the browser engine. The browser engine is the very important sub-software of every browser. There are different names for the engin given by Different browser manufacturers. For eg, Firefox calls there browser engine as Gecko, and Chrome’s call there engine as Blink.
+	Whenever we are building a website, there are some things which are very important for a good user experience. A website may face Some of the common problems like  slow loading of the resources,  flash of a unstyled content (FOUC), on initial render waiting for unnecessary files to download, etc. Therefore We need to understand the lifecycle of how a browser renders a typical webpage to avoid such problems.
+We need to understand first what is DOM . Whenever a browser sends request to the server to fetch an HTML document, then the server returns an HTML page in binary stream format which is simply a text file, with the response header Content-Typeset to the valuetext/html; charset=UTF-8.
+Here text/html is a MIME Type tells the browser that it is an HTML document and charset=UTF-8 tells the browser that it is encoded in UTF-8 character encoding. the browser can convert the binary format into a readable text file Using this information. 
+
+The main flow
+The rendering engine will start getting the contents from the networking layer of the requested document. This will bascally be done in 8kB chunks. This is the basic flow of the rendering engine after that:
+
+The rendering engine then will start to parse the HTML document and convert elements into the DOM nodes in the tree which is called as "content tree". The engine will parse the style data in the both external CSS files and in style elements. Then the styling information in the HTML with the visual instructions will be used to create another tree which is the render tree.
+The render tree contains the rectangles with the visual attributes like dimensions and color.
+After the construction is done of the render tree it goes through a process called layout. This means each node getting the exact coordinates of where it should appear on the screen.In The next stage the render tree will be traversed and each node will get painted using the UI backend layer.
+It is important to know that It is a gradual process. The rendering engine will try to display the contents on the screen as soon as possible for better user experience.  Therefore It will not wait until all HTML is parsed, before it starts to build and layout the render tree. Some parts of the content will be parsed and displayed, and simultaneously the process continues with the rest of the contents that keeps coming from the network as shown in the fig below.
+
+
+
+
+
+Document Object Model (DOM)
+While the browser reads HTML code and whenever it encounters an HTML element like html, body, div and such elements, it then creates a JavaScript object called a Node.All HTML elements will be converted to the JavaScript objects eventually, .
+Since every HTML element has different properties, the Node object will be created from different classes (constructor functions). For example, the Node object for the div element is created from HTMLDivElement which inherits Node class. For our earlier HTML document, we can visualize these nodes using a simple test as below.
+The browser comes with built-in classes like HTMLDivElement, HTMLScriptElement, Node etc.
+After the browser has created Nodes from the HTML document, it has to create a tree-like structure of these node objects. Since our HTML elements in the HTML file are nested inside each other, the browser needs to replicate that but using Node objects it has previously created. This will help the browser efficiently render and manage the webpage throughout its lifecycle.
+
+A DOM tree for our earlier HTML document looks like above. A DOM tree starts from the topmost element which is html element and branches out as per the occurrence and nesting of HTML elements in the document. Whenever an HTML element is found, it creates a DOM node (Node) object from its respective class (constructor function).
+💡 A DOM node doesn’t always have to be an HTML element. When the browser creates a DOM tree, it also saves things like comments, attributes, text as separate nodes in the tree. But for the simplicity, we will just consider DOM nodes for HTML elements AKA DOM element. Here is the list of all DOM node types.
+
+
+
+
+
+
+
